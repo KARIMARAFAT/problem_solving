@@ -5,40 +5,91 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Problem-Solving & Decision-Making Quiz</title>
 <style>
-:root{--bg:#f7f7f5;--card:#fff;--text:#1d1d1f;--muted:#6b6b70;--line:#e2e2e0;--accent:#2f6fed;--ok:#1f9d55;--bad:#d64545}
-@media (prefers-color-scheme: dark){:root{--bg:#161618;--card:#1f1f22;--text:#f2f2f4;--muted:#9a9aa2;--line:#2e2e33;--accent:#6b9bff;--ok:#3ccf7a;--bad:#ff6b6b}}
+:root{--bg:#eef2fb;--card:rgba(255,255,255,.8);--text:#1b1d2a;--muted:#6b6f80;--line:#dde2f0;--accent:#4f6ef7;--accent2:#8e5cf6;--ok:#16a34a;--bad:#e5484d;--shadow:0 18px 50px rgba(40,50,120,.14)}
+@media (prefers-color-scheme:dark){:root{--bg:#0d0f1a;--card:rgba(30,33,52,.82);--text:#eef0ff;--muted:#9aa0b8;--line:#2a2e45;--accent:#7b93ff;--accent2:#b07cff;--ok:#34d399;--bad:#ff6b6b;--shadow:0 18px 50px rgba(0,0,0,.45)}}
 *{box-sizing:border-box}
-body{margin:0;background:radial-gradient(circle at top,rgba(47,111,237,.12),var(--bg) 55%);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:24px 16px}
-.wrap{width:100%;max-width:640px}
-h1{font-size:22px;margin:0 0 4px;background:linear-gradient(90deg,var(--accent),#8e5cf6);-webkit-background-clip:text;background-clip:text;color:transparent;display:inline-block}
-.sub{color:var(--muted);font-size:14px;margin:0 0 16px}
-.stat{display:flex;justify-content:space-between;color:var(--muted);font-size:13px;margin-bottom:6px}
-.bar{height:6px;background:var(--line);border-radius:4px;overflow:hidden;margin-bottom:14px}
-.bar div{height:100%;background:var(--accent);width:0;transition:width .3s}
-.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 10px 30px rgba(0,0,0,.06)}
-.meta{display:flex;justify-content:space-between;color:var(--muted);font-size:13px;margin-bottom:10px}
-.q{font-size:17px;line-height:1.6;margin:0 0 16px;direction:ltr;text-align:left}
-.opt{display:block;width:100%;text-align:left;direction:ltr;background:transparent;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:8px;font:inherit;font-size:15px;cursor:pointer;line-height:1.5}
-.opt:hover:not(:disabled){border-color:var(--accent)}
-.opt:disabled{cursor:default}
-.opt.correct{border-color:var(--ok);background:rgba(31,157,85,.12)}
-.opt.wrong{border-color:var(--bad);background:rgba(214,69,69,.12)}
-.row{display:flex;justify-content:space-between;align-items:center;margin-top:14px;gap:10px;flex-wrap:wrap}
-.fb{font-size:14px;font-weight:600}
-.fb.ok{color:var(--ok)}.fb.bad{color:var(--bad)}
-button.primary{background:var(--accent);color:#fff;border:0;border-radius:10px;padding:10px 18px;font:inherit;font-size:15px;cursor:pointer;margin:4px 0}
-button.primary:disabled{opacity:.4;cursor:default}
-button.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent);border-radius:10px;padding:10px 18px;font:inherit;font-size:15px;cursor:pointer;margin:4px 0}
-.menu{display:flex;flex-direction:column;gap:10px}
-.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
-.tab{border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:999px;padding:6px 12px;font:inherit;font-size:13px;cursor:pointer}
-.tab:hover{border-color:var(--accent)}
-.tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+body{margin:0;min-height:100vh;color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;background:var(--bg);overflow-x:hidden;padding:28px 16px;display:flex;justify-content:center;align-items:flex-start}
+body::before{content:"";position:fixed;inset:-20%;z-index:-1;background:radial-gradient(40% 40% at 20% 20%,rgba(79,110,247,.30),transparent 60%),radial-gradient(35% 35% at 80% 30%,rgba(142,92,246,.27),transparent 60%),radial-gradient(40% 40% at 50% 90%,rgba(34,197,94,.18),transparent 60%);filter:blur(30px);animation:drift 18s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translate(4%,-3%) scale(1.06)}}
+.wrap{width:100%;max-width:680px;animation:rise .7s cubic-bezier(.2,.8,.2,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+h1{font-size:23px;margin:0 0 6px;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent));background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 5s linear infinite}
+@keyframes shine{to{background-position:200% center}}
+.sub{color:var(--muted);font-size:14px;margin:0 0 18px}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.tab{border:1px solid var(--line);background:var(--card);backdrop-filter:blur(8px);color:var(--text);border-radius:999px;padding:7px 14px;font:inherit;font-size:13px;cursor:pointer;transition:transform .2s,border-color .2s,background .2s}
+.tab:hover{transform:translateY(-2px);border-color:var(--accent)}
+.tab.active{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#fff;border-color:transparent;box-shadow:0 6px 18px rgba(79,110,247,.35)}
 .tab.total{border-color:var(--ok);color:var(--ok)}
-.menu button{text-align:right;direction:rtl}
-.result{text-align:center;padding:12px 0}
-.result .score{font-size:44px;font-weight:700;color:var(--accent)}
-.result .btns{display:flex;flex-direction:column;gap:8px;align-items:center;margin-top:16px}
+.stat{display:flex;justify-content:space-between;color:var(--muted);font-size:13px;margin-bottom:8px;gap:8px;flex-wrap:wrap}
+.bar{height:10px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:16px}
+.bar div{height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent));background-size:200% 100%;transition:width .6s cubic-bezier(.2,.8,.2,1);animation:flow 2.5s linear infinite}
+@keyframes flow{to{background-position:200% 0}}
+.card{background:var(--card);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:22px;padding:24px;box-shadow:var(--shadow);min-height:280px}
+.meta{display:flex;justify-content:space-between;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.pill{font-size:12px;color:var(--muted);background:rgba(127,127,160,.12);padding:4px 10px;border-radius:99px}
+.qbox{animation:slideIn .45s cubic-bezier(.2,.8,.2,1) both}
+@keyframes slideIn{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:none}}
+.q{font-size:17px;line-height:1.7;margin:0 0 16px;direction:ltr;text-align:left}
+.q p{margin:0 0 8px}
+.qwrap{overflow-x:auto;margin-bottom:14px;border-radius:12px}
+.qt{width:100%;border-collapse:collapse;font-size:13px;direction:ltr;text-align:center}
+.qt th,.qt td{border:1px solid var(--line);padding:7px 8px}
+.qt th{background:rgba(79,110,247,.12);font-weight:600}
+.qt tr:hover td{background:rgba(79,110,247,.06)}
+.flow{display:flex;flex-direction:column;align-items:center;gap:6px;margin:4px 0 14px;font-size:13px;direction:ltr}
+.flow .box{border:1.5px solid var(--accent);border-radius:10px;padding:6px 12px;background:rgba(79,110,247,.08)}
+.flow .dia{border:1.5px solid var(--accent2);border-radius:10px;padding:8px 12px;background:rgba(142,92,246,.08)}
+.flow .arr{color:var(--muted);line-height:1}
+.frow{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;align-items:center}
+.opts{display:block}
+.opt{display:flex;align-items:center;gap:12px;width:100%;text-align:left;direction:ltr;background:rgba(127,127,160,.06);color:var(--text);border:1.5px solid var(--line);border-radius:14px;padding:13px 14px;margin-bottom:10px;font:inherit;font-size:15px;cursor:pointer;line-height:1.5;opacity:1;transition:transform .2s,border-color .2s,background .2s,box-shadow .2s;animation:optIn .45s cubic-bezier(.2,.8,.2,1) both;animation-delay:var(--d,0ms)}
+@keyframes optIn{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:none}}
+.opt .k{width:28px;height:28px;flex:none;border-radius:8px;display:grid;place-items:center;background:var(--line);font-weight:700;font-size:13px}
+.opt:hover:not(:disabled){transform:translateX(4px);border-color:var(--accent);box-shadow:0 8px 20px rgba(79,110,247,.15)}
+.opt:disabled{cursor:default}
+.opt:disabled:not(.correct):not(.wrong){opacity:.55}
+.opt.correct{border-color:var(--ok);background:rgba(22,163,74,.14);animation:pop .5s}
+.opt.correct .k{background:var(--ok);color:#fff}
+.opt.wrong{border-color:var(--bad);background:rgba(229,72,77,.14);animation:shake .45s}
+.opt.wrong .k{background:var(--bad);color:#fff}
+@keyframes pop{0%{transform:scale(.96)}50%{transform:scale(1.03)}100%{transform:scale(1)}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(3px)}}
+.actrow{display:flex;justify-content:space-between;align-items:center;margin-top:14px;gap:10px;flex-wrap:wrap}
+.fb{font-size:14px;font-weight:700;padding:6px 12px;border-radius:99px;opacity:0}
+.fb.show{opacity:1;animation:pop .4s}
+.fb.ok{color:var(--ok);background:rgba(22,163,74,.12)}
+.fb.bad{color:var(--bad);background:rgba(229,72,77,.12)}
+.expl{direction:ltr;text-align:left;color:var(--muted);font-size:14px;margin:14px 0 0;line-height:1.6;padding:12px 14px;border-radius:12px;background:rgba(127,127,160,.08);animation:rise .4s both}
+button.primary{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#fff;border:0;border-radius:12px;padding:11px 20px;font:inherit;font-weight:600;cursor:pointer;box-shadow:0 8px 20px rgba(79,110,247,.3);transition:transform .15s,box-shadow .2s,opacity .2s}
+button.primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 12px 26px rgba(79,110,247,.4)}
+button.primary:active:not(:disabled){transform:scale(.97)}
+button.primary:disabled{opacity:.4;cursor:default;box-shadow:none}
+button.ghost{background:transparent;color:var(--accent);border:1.5px solid var(--accent);border-radius:12px;padding:10px 20px;font:inherit;font-weight:600;cursor:pointer;transition:background .2s,color .2s,transform .15s}
+button.ghost:hover{background:var(--accent);color:#fff;transform:translateY(-2px)}
+.menu{display:grid;gap:12px}
+.secCard{display:flex;align-items:center;gap:14px;width:100%;text-align:right;direction:rtl;background:var(--card);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:18px;padding:14px 16px;cursor:pointer;color:var(--text);font:inherit;box-shadow:0 8px 24px rgba(40,50,120,.08);transition:transform .25s,box-shadow .25s,border-color .25s;animation:cardIn .5s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i,0) * 70ms)}
+.secCard:hover{transform:translateY(-3px) scale(1.01);box-shadow:0 16px 36px rgba(79,110,247,.2);border-color:var(--accent)}
+@keyframes cardIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.secIcon{width:46px;height:46px;flex:none;border-radius:14px;display:grid;place-items:center;font-size:22px;background:linear-gradient(135deg,rgba(79,110,247,.18),rgba(142,92,246,.18))}
+.secBody{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
+.secName{font-weight:600;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.secMini{height:6px;background:var(--line);border-radius:99px;overflow:hidden}
+.secFill{display:block;height:100%;background:linear-gradient(90deg,var(--ok),var(--accent));border-radius:99px;transition:width 1s cubic-bezier(.2,.8,.2,1)}
+.secNum{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.result{text-align:center;padding:6px 0;animation:rise .5s both}
+.lbl{font-weight:600;margin:0 0 6px}
+.muted{color:var(--muted);font-size:14px}
+.ring{width:160px;height:160px;border-radius:50%;margin:8px auto 14px;background:conic-gradient(var(--ok) calc(var(--p,0) * 1%),var(--line) 0);display:grid;place-items:center;animation:ringIn 1s cubic-bezier(.2,.8,.2,1) both;box-shadow:0 10px 30px rgba(79,110,247,.2)}
+@keyframes ringIn{from{transform:scale(.6) rotate(-90deg);opacity:0}to{transform:none;opacity:1}}
+.ring .in{width:128px;height:128px;border-radius:50%;background:var(--card);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:700;font-size:20px;color:var(--accent)}
+.ring .in small{font-size:12px;color:var(--muted);font-weight:500}
+.orow{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px;text-align:right;direction:rtl}
+.done{font-weight:700;color:var(--ok);font-size:18px}
+.btns{display:flex;flex-direction:column;gap:10px;align-items:center;margin-top:16px}
+.conf{position:fixed;top:-14px;width:9px;height:14px;border-radius:2px;pointer-events:none;z-index:99;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(105vh) rotate(720deg);opacity:0}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
@@ -51,6 +102,12 @@ button.ghost{background:transparent;color:var(--accent);border:1px solid var(--a
   <div class="card" id="app"></div>
 </div>
 <script>
+const TY = '<div class="qwrap"><table class="qt"><tr><th>Customer</th><th>Interarrival Time [Minutes]</th><th>Service Time [Minutes]</th></tr><tr><td>1</td><td>-</td><td>4</td></tr><tr><td>2</td><td>2</td><td>1</td></tr><tr><td>3</td><td>4</td><td>3</td></tr><tr><td>4</td><td>1</td><td>6</td></tr><tr><td>5</td><td>4</td><td>2</td></tr></table></div>';
+
+const QT = '<div class="qwrap"><table class="qt"><tr><th>Customer</th><th>Interarrival Time [Minutes]</th><th>Arrival Time [Clock]</th><th>Service Time [Minutes]</th><th>Time Service Begins [Clock]</th><th>Time Service Ends [Clock]</th><th>Waiting Time in Queue [Minutes]</th><th>Time Customer In System [Minutes]</th><th>Idle Time Of Server [Minutes]</th></tr><tr><td>1</td><td>-</td><td></td><td>4</td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>2</td><td>3</td><td></td><td>1</td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>3</td><td>6</td><td></td><td>2</td><td></td><td></td><td></td><td></td><td></td></tr></table></div>';
+
+const FLOW = '<div class="flow"><div class="box">Departure event</div><div class="arr">↓</div><div class="dia">Another unit waiting?</div><div class="frow"><div class="box">No → Begin server idle time</div><div class="box">Yes → Remove the waiting unit from the queue</div></div><div class="arr">↓</div><div class="box">Begin servicing the unit</div></div>';
+
 const SECTIONS = [
 {
 name: "محاضرة 3 — MCQs",
@@ -63,37 +120,37 @@ items: [
 {t:"mcq",q:"Design Thinking consists of several phases. Which is the first phase?",o:["Prototype","Define","Ideate","Empathize"],a:3},
 {t:"mcq",q:"What is the final phase of Design Thinking?",o:["Prototype","Test","Implement","Evaluate"],a:1},
 {t:"mcq",q:"Problem-solving techniques enable individuals to create solutions through all of the following EXCEPT:",o:["Analyzing","Guessing blindly","Inquiry-based learning","Diagnosing the problems"],a:1},
-{t:"mcq",q:"How many steps are specifically listed under \u201cSteps Involved in the Problem Solving Techniques\u201d?",o:["4","5","7","10"],a:1},
-{t:"mcq",q:"What is Step 2 in the \u201cSteps Involved in the Problem Solving Techniques\u201d?",o:["Understand the Problem","Evaluation of Solutions","Develop Solutions","Create a Strategy"],a:3},
-{t:"mcq",q:"Which of the following techniques is included in the \u201cTop 14 Problem Solving Techniques\u201d?",o:["The 50/50 Rule","Kipling Method","Avoidance Strategy","Cognitive Mapping"],a:1},
+{t:"mcq",q:"How many steps are specifically listed under “Steps Involved in the Problem Solving Techniques”?",o:["4","5","7","10"],a:1},
+{t:"mcq",q:"What is Step 2 in the “Steps Involved in the Problem Solving Techniques”?",o:["Understand the Problem","Evaluation of Solutions","Develop Solutions","Create a Strategy"],a:3},
+{t:"mcq",q:"Which of the following techniques is included in the “Top 14 Problem Solving Techniques”?",o:["The 50/50 Rule","Kipling Method","Avoidance Strategy","Cognitive Mapping"],a:1},
 {t:"mcq",q:"What does PDCA stand for in the list of problem-solving techniques?",o:["Plan Do Check Act","Process Design Create Analyze","Prepare Develop Choose Apply","Problem Definition Causes Actions"],a:0},
-{t:"mcq",q:"Which mistake involves \u201cMaking improvements that don\u2019t address the source of the problem\u201d?",o:["Mistake #1","Mistake #2","Mistake #3","Mistake #4"],a:2},
+{t:"mcq",q:"Which mistake involves “Making improvements that don’t address the source of the problem”?",o:["Mistake #1","Mistake #2","Mistake #3","Mistake #4"],a:2},
 {t:"mcq",q:"What is Mistake #1 to avoid when problem solving?",o:["Not having a framework","Not involving the right people","Failing to get aligned in the beginning","Not considering technology"],a:1},
 {t:"mcq",q:"Mistake #4 is failing to consider how ___ could be part of the solution.",o:["Management","Outsourcing","Technology","Financial resources"],a:2},
-{t:"mcq",q:"Which of the following is Mistake #5?",o:["Not having a framework for problem-solving","Making improvements that don\u2019t address the source","Not involving the right people","Failing to get aligned in the beginning"],a:0},
-{t:"mcq",q:"In the general Problem-Solving Process, what comes immediately after \u201cGenerate Possible Solutions\u201d?",o:["Implement the Solution","Evaluate and Select Solutions","Reflect and Learn","Analyze the Problem"],a:1},
+{t:"mcq",q:"Which of the following is Mistake #5?",o:["Not having a framework for problem-solving","Making improvements that don’t address the source","Not involving the right people","Failing to get aligned in the beginning"],a:0},
+{t:"mcq",q:"In the general Problem-Solving Process, what comes immediately after “Generate Possible Solutions”?",o:["Implement the Solution","Evaluate and Select Solutions","Reflect and Learn","Analyze the Problem"],a:1},
 {t:"mcq",q:"In the Decision-making process, what is Step 5?",o:["Evaluate Alternatives","Choose the Best Alternative","Identify and Develop Alternatives","Gather Relevant Information"],a:1},
 {t:"mcq",q:"Which of the following is NOT one of the 5 phases of Design Thinking?",o:["Ideate","Brainstorm","Prototype","Empathize"],a:1},
-{t:"mcq",q:"\u201cFIVE Whys\u201d is classified under:",o:["Mistakes to avoid","Top 14 Problem Solving Techniques","Design Thinking phases","Strategies to improve decision-making"],a:1},
-{t:"mcq",q:"Building \u201cResilience and Adaptability\u201d is listed as a strategy for:",o:["Generating alternatives","Brainstorming effectively","Improving decision-making and problem-solving skills","Avoiding technology mistakes"],a:2},
+{t:"mcq",q:"“FIVE Whys” is classified under:",o:["Mistakes to avoid","Top 14 Problem Solving Techniques","Design Thinking phases","Strategies to improve decision-making"],a:1},
+{t:"mcq",q:"Building “Resilience and Adaptability” is listed as a strategy for:",o:["Generating alternatives","Brainstorming effectively","Improving decision-making and problem-solving skills","Avoiding technology mistakes"],a:2},
 {t:"mcq",q:"Which analysis method is explicitly mentioned in the Top 14 techniques along with Root Cause Analysis?",o:["Fishbone Analysis","Financial Analysis","Competitor Analysis","Market Analysis"],a:0},
 {t:"mcq",q:"In the context of the course material, what technique involves starting from the goal and planning in reverse?",o:["FEMA","Guess and Check","SWOT Analysis","Work Backwards"],a:3},
-{t:"mcq",q:"\u201cCollaborate and Seek Diverse Perspectives\u201d is one of the:",o:["7 Steps of decision-making","10 Strategies to improve skills","5 Mistakes to avoid","Top 14 techniques"],a:1},
+{t:"mcq",q:"“Collaborate and Seek Diverse Perspectives” is one of the:",o:["7 Steps of decision-making","10 Strategies to improve skills","5 Mistakes to avoid","Top 14 techniques"],a:1},
 {t:"mcq",q:"According to the provided definition, problem solving techniques become possible by:",o:["Ignoring the root cause","Evaluating, preparing and diagnosing the problems","Skipping the evaluation phase","Developing solutions without strategy"],a:1},
-{t:"tf",q:"The first step in the general problem-solving process is \u201cAnalyze the Problem\u201d.",a:false},
+{t:"tf",q:"The first step in the general problem-solving process is “Analyze the Problem”.",a:false},
 {t:"tf",q:"Practice Reflective Learning is one of the strategies to improve decision-making and problem-solving skills.",a:true},
 {t:"tf",q:"The Pareto Principle is also known as the 50/50 Rule.",a:false},
-{t:"tf",q:"The \u201cIdeate\u201d phase is part of Design Thinking.",a:true},
+{t:"tf",q:"The “Ideate” phase is part of Design Thinking.",a:true},
 {t:"tf",q:"Brainstorming is listed as both a Key Problem-Solving Technique and one of the Top 14 Techniques.",a:true},
 {t:"tf",q:"There are exactly 7 steps involved in Problem Solving Techniques.",a:false},
 {t:"tf",q:"FEMA is listed as one of the Top 14 Problem Solving Techniques.",a:true},
-{t:"tf",q:"Mistake #2 when problem solving is \u201cFailing to get aligned in the beginning\u201d.",a:true},
+{t:"tf",q:"Mistake #2 when problem solving is “Failing to get aligned in the beginning”.",a:true},
 {t:"tf",q:"Not involving the right people is considered Mistake #5.",a:false},
 {t:"tf",q:"Gather Relevant Information is step 2 of the 7-step decision-making process.",a:true},
-{t:"tf",q:"\u201cReflect and Learn\u201d is the final step in the general problem-solving process.",a:true},
+{t:"tf",q:"“Reflect and Learn” is the final step in the general problem-solving process.",a:true},
 {t:"tf",q:"Means-end analysis is NOT one of the top 14 problem solving techniques.",a:false},
 {t:"tf",q:"The problem-solving framework dictates that technology should rarely be considered as part of the solution.",a:false},
-{t:"tf",q:"Creating a Strategy is Step 2 in the \u201cSteps Involved in the Problem Solving Techniques\u201d.",a:true},
+{t:"tf",q:"Creating a Strategy is Step 2 in the “Steps Involved in the Problem Solving Techniques”.",a:true},
 {t:"tf",q:"Simulating real-world scenarios is discouraged when trying to improve decision-making skills.",a:false}
 ]},
 {
@@ -101,27 +158,27 @@ name: "محاضرة 3 — Summary",
 items: [
 {t:"mcq",q:"What is the first step in the general Problem-Solving Process?",o:["Generate Possible Solutions","Analyze the Problem","Define the Problem","Reflect and Learn"],a:2},
 {t:"mcq",q:"Which course is this lecture material associated with?",o:["CS410: Advanced Algorithms","CS413: Problem Solving and Decision Making","CS101: Introduction to Computer Science","CS312: Software Engineering"],a:1},
-{t:"mcq",q:"According to the 7 steps of the decision-making process, what follows \u201cEvaluate Alternatives\u201d?",o:["Identify the Problem","Implement the Solution","Choose the Best Alternative","Gather Relevant Information"],a:2},
+{t:"mcq",q:"According to the 7 steps of the decision-making process, what follows “Evaluate Alternatives”?",o:["Identify the Problem","Implement the Solution","Choose the Best Alternative","Gather Relevant Information"],a:2},
 {t:"mcq",q:"What is the final step (Step 7) in the standard Problem-Solving Process?",o:["Reflect and Learn","Monitor and Evaluate Outcomes","Implement the Solution","Evaluate and Select Solutions"],a:0},
 {t:"mcq",q:"Which of the following is an integrated strategy for improving decision-making and problem-solving skills?",o:["Ignoring diverse perspectives","Fostering creativity and innovation","Relying solely on intuition","Avoiding real-world scenarios"],a:1},
 {t:"mcq",q:"Problem-solving strategies are essential because they help to find the:",o:["Quickest workaround available","Root cause of the problem","Cheapest implementation method","Most technologically advanced tool"],a:1},
-{t:"mcq",q:"Which phase comes immediately after \u201cEmpathize\u201d in the Design Thinking process?",o:["Prototype","Ideate","Test","Define"],a:3},
+{t:"mcq",q:"Which phase comes immediately after “Empathize” in the Design Thinking process?",o:["Prototype","Ideate","Test","Define"],a:3},
 {t:"mcq",q:"The Pareto Principle is also known as:",o:["The 50/50 Rule","The 80/20 Rule","The 90/10 Rule","The PDCA Cycle"],a:1},
 {t:"mcq",q:"What is Mistake #1 to avoid when problem solving?",o:["Not having a framework","Not involving the right people","Failing to get aligned in the beginning","Ignoring technology"],a:1},
 {t:"mcq",q:"Which problem-solving technique involves creating possible solutions by analyzing and diagnosing the problem?",o:["Inquiry-based learning","Means-end analysis","Fishbone analysis","Problem-solving techniques in general"],a:3},
 {t:"mcq",q:"Mistake #4 in problem solving involves not considering how what element could be part of the solution?",o:["Financial budgeting","Human resources","Technology","Management alignment"],a:2},
-{t:"mcq",q:"In the \u201cSteps Involved in the Problem Solving Techniques\u201d, what is Step 2?",o:["Understand the Problem","Create a Strategy","Evaluation of Solutions","Develop Solutions"],a:1},
+{t:"mcq",q:"In the “Steps Involved in the Problem Solving Techniques”, what is Step 2?",o:["Understand the Problem","Create a Strategy","Evaluation of Solutions","Develop Solutions"],a:1},
 {t:"mcq",q:"Which of the following is listed among the Top 14 Problem Solving Techniques?",o:["Kipling Method","Agile Methodology","Waterfall Model","Scrum Framework"],a:0},
 {t:"mcq",q:"What is the last stage of the Design Thinking process?",o:["Prototype","Ideate","Test","Define"],a:2},
-{t:"mcq",q:"Making improvements that don\u2019t address the source of the problem is considered which mistake?",o:["Mistake #2","Mistake #3","Mistake #4","Mistake #5"],a:1},
+{t:"mcq",q:"Making improvements that don’t address the source of the problem is considered which mistake?",o:["Mistake #2","Mistake #3","Mistake #4","Mistake #5"],a:1},
 {t:"mcq",q:"Which of the following acronyms is listed as a top problem-solving technique?",o:["NATO","PDCA","HTML","HTTP"],a:1},
-{t:"mcq",q:"\u201cSimulate Real-World Scenarios\u201d is a strategy used to improve what?",o:["Technological infrastructure","Programming efficiency","Decision-making and problem-solving skills","Budgetary allocations"],a:2},
+{t:"mcq",q:"“Simulate Real-World Scenarios” is a strategy used to improve what?",o:["Technological infrastructure","Programming efficiency","Decision-making and problem-solving skills","Budgetary allocations"],a:2},
 {t:"mcq",q:"Mistake #5 warns against problem solving without a:",o:["Framework","Budget","Team leader","Software application"],a:0},
-{t:"mcq",q:"What does the \u201cFive Whys\u201d technique primarily aim to achieve?",o:["Increase the project budget","Identify the root cause of a problem","Determine employee schedules","Evaluate financial alternatives"],a:1},
-{t:"mcq",q:"Which step precedes \u201cImplement the Solution\u201d in the 7-step decision-making process?",o:["Gather Relevant Information","Evaluate Alternatives","Choose the Best Alternative","Monitor and Evaluate the Outcome"],a:2},
-{t:"mcq",q:"\u201cBuild Resilience and Adaptability\u201d is categorized under:",o:["Problem-Solving Mistakes","Strategies to improve decision-making and problem-solving skills","The Design Thinking Process","Key Problem-Solving Techniques"],a:1},
-{t:"mcq",q:"Which technique requires you to \u201cWork Backwards\u201d?",o:["One of the Top 14 Problem Solving Techniques","Step 1 of the Decision Making Process","Mistake #2 of Problem Solving","Step 3 of Design Thinking"],a:0},
-{t:"mcq",q:"\u201cFEMA\u201d is listed in the slides as one of the:",o:["5 Mistakes to avoid","Top 14 Problem Solving Techniques","Steps in Design Thinking","Strategies for critical thinking"],a:1},
+{t:"mcq",q:"What does the “Five Whys” technique primarily aim to achieve?",o:["Increase the project budget","Identify the root cause of a problem","Determine employee schedules","Evaluate financial alternatives"],a:1},
+{t:"mcq",q:"Which step precedes “Implement the Solution” in the 7-step decision-making process?",o:["Gather Relevant Information","Evaluate Alternatives","Choose the Best Alternative","Monitor and Evaluate the Outcome"],a:2},
+{t:"mcq",q:"“Build Resilience and Adaptability” is categorized under:",o:["Problem-Solving Mistakes","Strategies to improve decision-making and problem-solving skills","The Design Thinking Process","Key Problem-Solving Techniques"],a:1},
+{t:"mcq",q:"Which technique requires you to “Work Backwards”?",o:["One of the Top 14 Problem Solving Techniques","Step 1 of the Decision Making Process","Mistake #2 of Problem Solving","Step 3 of Design Thinking"],a:0},
+{t:"mcq",q:"“FEMA” is listed in the slides as one of the:",o:["5 Mistakes to avoid","Top 14 Problem Solving Techniques","Steps in Design Thinking","Strategies for critical thinking"],a:1},
 {t:"mcq",q:"Failing to get aligned in the beginning is identified as Mistake #:",o:["1","2","3","4"],a:1},
 {t:"mcq",q:"Step 2 of the decision-making problem-solving process is to:",o:["Identify and Develop Alternatives","Gather Relevant Information","Choose the Best Alternative","Evaluate Alternatives"],a:1}
 ]},
@@ -299,181 +356,370 @@ items: [
 {t:"mcq",q:"An individual purchasing a few shares of a company for personal financial growth is classified as a:",o:["Promoter","Retail Investor","Majority Shareholder","Institutional Investor"],a:1},
 {t:"mcq",q:"Which of the following is NOT an example of a stakeholder’s primary interest?",o:["Product quality","Employment stability","Direct equity ownership and maximum dividend payout","Business continuity and economic opportunity"],a:2},
 {t:"mcq",q:"Why is communication a crucial outcome of stakeholder analysis?",o:["It allows companies to send the exact same email to every individual involved.","It helps tailor communication strategies to the specific channels and media each group prefers, boosting engagement.","It is legally mandated by Section 47 of the Companies Act, 2013 for all stakeholders.","It prevents secondary stakeholders from discovering the company’s financial status."],a:1}
+]},
+{
+name: "CS413 S3 — Theory (Midterm)",
+items: [
+{t:"mcq",q:"Which formula gives the average waiting time in a queueing simulation?",o:["total time customers wait in queue / total number of customers","total time customers wait in queue / number of customers who wait","total time customers spend in system / total number of customers","total idle time of server / total run time"],a:0},
+{t:"mcq",q:"Which formula gives the probability that a customer has to wait?",o:["number of customers who wait / total number of customers","total waiting time / number of customers who wait","total idle time / total run time","number of customers who wait / total run time"],a:0},
+{t:"mcq",q:"Which formula gives the probability of an idle server?",o:["total idle time of server / total run time of simulation","total idle time of server / total number of customers","total service time / total run time of simulation","total run time / total idle time of server"],a:0},
+{t:"mcq",q:"Which formula gives the average service time?",o:["total service time / total number of customers","total service time / number of customers who wait","total run time / total number of customers","total service time / total run time"],a:0},
+{t:"mcq",q:"The expected service time E(S) is computed as:",o:["sum of s · p(s) over all service times s","sum of p(s) divided by s","the largest service time","the average of the service times in one simulation"],a:0},
+{t:"mcq",q:"The average time between arrivals is computed as:",o:["sum of all times between arrivals / (number of arrivals − 1)","sum of all times between arrivals / number of arrivals","total run time / number of arrivals","sum of arrival clock times / number of arrivals"],a:0},
+{t:"mcq",q:"For a discrete uniform interarrival distribution from a to b, the expected value E(A) equals:",o:["(a + b) / 2","(a + b) / (b − a)","a × b","(b − a) / 2"],a:0},
+{t:"mcq",q:"For interarrival times uniform from 1 to 8, E(A) equals:",o:["3.5","4","4.5","5"],a:2},
+{t:"mcq",q:"The average waiting time of those who wait is computed as:",o:["total waiting time in queue / number of customers who wait","total waiting time in queue / total number of customers","total time in system / number of customers who wait","total service time / number of customers who wait"],a:0},
+{t:"mcq",q:"Which relationship must hold between the average time in system, average waiting time, and average service time?",o:["average time in system = average waiting time in queue + average service time","average time in system = average waiting time in queue − average service time","average time in system = average waiting time in queue × average service time","average time in system = average service time / average waiting time in queue"],a:0},
+{t:"mcq",q:"The total run time of a simulation is the clock time when:",o:["the first customer arrives","the last customer's service ends","the server becomes idle for the first time","the last customer arrives"],a:1},
+{t:"mcq",q:"For a customer, the time in queue (waiting time) is computed as:",o:["service time begins − arrival time","service time ends − arrival time","service time ends − service time begins","arrival time − previous service ends"],a:0},
+{t:"mcq",q:"For a customer, the time spent in the system is computed as:",o:["service time ends − arrival time","service time begins − arrival time","service time ends − service time begins","arrival time − previous arrival time"],a:0},
+{t:"mcq",q:"For a customer, the service time ends clock is computed as:",o:["service time begins + service time","arrival time + service time","previous service ends + interarrival time","arrival time − service time"],a:0},
+{t:"mcq",q:"The arrival time (clock) of a customer is computed as:",o:["previous arrival time + interarrival time","previous service ends + service time","service begins + interarrival time","interarrival time only"],a:0},
+{t:"mcq",q:"The idle time of the server before a customer begins service is computed as:",o:["service time begins − previous service ends","arrival time − service time","service ends − service begins","previous service begins − arrival time"],a:0},
+{t:"mcq",q:"In a 20-customer run, the total waiting time in queue was 56 minutes. The average waiting time per customer is:",o:["1.74 min","2.8 min","3.4 min","6.2 min"],a:1,e:"56 / 20 = 2.8 minutes."},
+{t:"mcq",q:"In the 20-customer run, 13 customers waited. The probability that a customer has to wait is:",o:["0.21","0.46","0.65","0.24"],a:2,e:"13 / 20 = 0.65."},
+{t:"mcq",q:"In the 20-customer run, the probability of an idle server is:",o:["0.21","0.24","0.65","0.59"],a:0,e:"18 / 86 ≈ 0.21."},
+{t:"mcq",q:"The theoretical expected service time E(S) for the given service-time distribution is:",o:["2.8","3.2","3.4","4.5"],a:1,e:"1(0.10)+2(0.20)+3(0.30)+4(0.25)+5(0.10)+6(0.05) = 3.2."},
+{t:"mcq",q:"In the 20-customer run, the average time between arrivals is:",o:["4.3 min","4.5 min","3.4 min","6.2 min"],a:0,e:"82 / 19 ≈ 4.3 minutes."},
+{t:"mcq",q:"In the 20-customer run, the average waiting time of those who wait is:",o:["2.8 min","3.2 min","4.3 min","6.2 min"],a:2,e:"56 / 13 ≈ 4.3 minutes."},
+{t:"mcq",q:"In the 20-customer run, the average time a customer spends in the system is:",o:["2.8 min","3.4 min","4.3 min","6.2 min"],a:3,e:"124 / 20 = 6.2 minutes."},
+{t:"mcq",q:"In the 100-customer run, the average waiting time is:",o:["1.32 min","1.74 min","3.17 min","4.91 min"],a:1,e:"174 / 100 = 1.74 minutes."},
+{t:"mcq",q:"In the 100-customer run, the probability that a customer has to wait is:",o:["0.24","0.46","0.54","0.65"],a:1,e:"46 / 100 = 0.46."},
+{t:"mcq",q:"In the 100-customer run, the proportion of server idle time is:",o:["0.21","0.24","0.46","0.59"],a:1,e:"101 / 418 ≈ 0.24."},
+{t:"mcq",q:"In the 100-customer run, the average waiting time of those who wait is:",o:["1.74 min","3.22 min","4.19 min","4.91 min"],a:1,e:"174 / 54 ≈ 3.22 minutes."},
+{t:"mcq",q:"In the 100-customer run, the average time between arrivals (observed) is:",o:["4.19 min","4.5 min","3.17 min","4.91 min"],a:0,e:"415 / 99 ≈ 4.19 minutes. The expected value E(A) is 4.5."},
+{t:"mcq",q:"In the 100-customer run, the average time a customer spends in the system is:",o:["1.74 min","3.17 min","4.91 min","6.2 min"],a:2,e:"491 / 100 = 4.91 minutes."},
+{t:"mcq",q:"In the 100-customer run, the observed average service time is:",o:["3.17 min","3.2 min","3.4 min","4.91 min"],a:0,e:"317 / 100 = 3.17 minutes. E(S) = 3.2."},
+{t:"mcq",q:"Why might 100 customers be too small a sample size to draw reliable conclusions?",o:["Because the simulation runs too fast","Because increasing sample size or running multiple replications can enhance accuracy","Because service times are always integers","Because the server is never idle"],a:1},
+{t:"mcq",q:"Why does the grocery simulation start with an empty system?",o:["It is always the realistic starting condition.","It keeps calculations simple, while concerns about initial conditions are overlooked.","It is required by queueing theory.","Simulations cannot start with customers."],a:1},
+{t:"mcq",q:"In the 50-trial experiment, what does each trial represent?",o:["One customer","One day (one run of 100 customers)","One minute","One server"],a:1},
+{t:"mcq",q:"The overall average waiting time over the 50 trials was:",o:["1.32 min","1.74 min","3.22 min","0.46 min"],a:0},
+{t:"mcq",q:"In the histogram of individual customer waiting times, how many customers fall in the interval (0, 2]?",o:["54","14","20","8"],a:1},
+{t:"mcq",q:"In the histogram of individual customer waiting times, the bin with the highest occurrences is:",o:["Bin 0","Bin 2","Bin 4","Bin 6"],a:0,e:"54 customers had zero waiting time."},
+{t:"mcq",q:"In the histogram of average waiting times over 50 trials, the most frequent bin is:",o:["(0.5, 1]","(1, 1.5]","(1.5, 2]","(2, 2.5]"],a:1,e:"22 trials fall in (1, 1.5]."},
+{t:"mcq",q:"How many trials had an average waiting time in the interval (1.5, 2]?",o:["10","22","15","1"],a:2},
+{t:"mcq",q:"The cumulative probability table is used in simulation to:",o:["compute averages directly","generate random values that follow the given distribution","calculate idle time only","compute queue length only"],a:1},
+{t:"mcq",q:"In the service-time table, which service time is the most probable?",o:["2 minutes","3 minutes","4 minutes","5 minutes"],a:1,e:"Probability of 3 minutes is 0.30, the highest."},
+{t:"mcq",q:"The cumulative probability that the service time is at most 3 minutes is:",o:["0.30","0.60","0.85","0.10"],a:1,e:"0.10 + 0.20 + 0.30 = 0.60."},
+{t:"mcq",q:"The probability of each interarrival value (1 to 8 minutes) in the grocery example is:",o:["0.10","0.125","0.20","0.25"],a:1,e:"Discrete uniform: 1/8 = 0.125."},
+{t:"tf",q:"The average waiting time is computed by dividing the total waiting time by the number of customers who waited.",a:false,e:"It is divided by the total number of customers. The 'who wait' version is a separate measure."},
+{t:"tf",q:"The probability of an idle server equals total idle time divided by total run time of the simulation.",a:true},
+{t:"tf",q:"The average time a customer spends in the system equals average waiting time in queue plus average time in service.",a:true},
+{t:"tf",q:"In the 20-customer run, the average service time (3.4 min) equals the theoretical expected service time (3.2 min).",a:false,e:"They are close but not equal. The simulation approaches the theoretical mean as runs get longer."},
+{t:"tf",q:"Increasing the number of customers or running multiple replications may improve the accuracy of results.",a:true},
+{t:"tf",q:"The grocery simulation in the slides starts with customers already waiting in the queue.",a:false,e:"It starts with an empty grocery."},
+{t:"tf",q:"For 100 customers, the average time between arrivals is computed by dividing by 100.",a:false,e:"It is divided by the number of arrivals minus 1, which is 99."},
+{t:"tf",q:"The average waiting time of customers who wait is always greater than or equal to the overall average waiting time.",a:true,e:"The overall average includes customers with zero wait, so it is lower."},
+{t:"tf",q:"The idle time of the server before a customer starts service occurs only when the customer arrives after the previous service has ended.",a:true},
+{t:"tf",q:"The total run time of a simulation equals the clock time when the last customer's service ends.",a:true},
+{t:"tf",q:"The histogram bin (0, 2] includes waiting times up to and including 2 minutes.",a:true},
+{t:"tf",q:"The observed average service time from a simulation always equals E(S) exactly.",a:false,e:"Observed values vary; they approach E(S) as the simulation gets longer."},
+{t:"tf",q:"The average time between arrivals in a short run always equals E(A) exactly.",a:false,e:"Observed values vary; they approach E(A) as the run gets longer."},
+{t:"tf",q:"The average time a customer spends in the system is always less than the average waiting time in queue.",a:false,e:"Time in system = waiting time + service time, so it is always larger."}
+]},
+{
+name: "CS413 S3 — Try Yourself",
+items: [
+{t:"mcq",h:TY+"<p>Make a full simulation table, then calculate: Average waiting time</p>",q:"Make a full simulation table, then calculate: Average waiting time",o:["8/5 min","12/5 min","16/5 min","24/5 min"],a:0,e:"Total waiting = 0+2+0+2+4 = 8; 8/5 = 1.6 min."},
+{t:"mcq",h:TY+"<p>Make a full simulation table, then calculate: Probability that a customer has to wait</p>",q:"Make a full simulation table, then calculate: Probability that a customer has to wait",o:["1/5","2/5","3/5","4/5"],a:2,e:"Customers 2, 4 and 5 waited: 3/5."},
+{t:"mcq",h:TY+"<p>Make a full simulation table, then calculate: Proportion of idle server time</p>",q:"Make a full simulation table, then calculate: Proportion of idle server time",o:["1/17","2/17","1/5","3/17"],a:0,e:"Total idle = 1 min, total run time = 17 min."},
+{t:"mcq",h:TY+"<p>Make a full simulation table, then calculate: Average service time</p>",q:"Make a full simulation table, then calculate: Average service time",o:["11/5 min","16/5 min","24/5 min","8/5 min"],a:1,e:"Total service = 4+1+3+6+2 = 16; 16/5 = 3.2 min."},
+{t:"mcq",h:TY+"<p>Make a full simulation table, then calculate: Average time a customer spends in the system</p>",q:"Make a full simulation table, then calculate: Average time a customer spends in the system",o:["8/5 min","16/5 min","24/5 min","17/5 min"],a:2,e:"Total time in system = 4+3+3+8+6 = 24; 24/5 = 4.8 min."},
+{t:"mcq",h:TY+"<p>After building the simulation table, what is the arrival time (clock) of customer 3?</p>",q:"After building the simulation table, what is the arrival time (clock) of customer 3?",o:["4","6","7","11"],a:1,e:"2 + 4 = 6."},
+{t:"mcq",h:TY+"<p>After building the simulation table, when does the service of customer 4 begin (clock)?</p>",q:"After building the simulation table, when does the service of customer 4 begin (clock)?",o:["7","9","11","15"],a:1,e:"Customer 3 ends at 9, so customer 4 begins at 9."},
+{t:"mcq",h:TY+"<p>After building the simulation table, what is the idle time of the server before customer 3 begins service?</p>",q:"After building the simulation table, what is the idle time of the server before customer 3 begins service?",o:["0","1","2","3"],a:1,e:"Customer 2 ends at 5; customer 3 arrives at 6: idle = 1 min."},
+{t:"mcq",h:TY+"<p>After building the simulation table, what is the total run time of the simulation (clock)?</p>",q:"After building the simulation table, what is the total run time of the simulation (clock)?",o:["15","16","17","24"],a:2,e:"Customer 5's service ends at 17."},
+{t:"mcq",h:TY+"<p>After building the simulation table, what is the total of the Time Customer in System column?</p>",q:"After building the simulation table, what is the total of the Time Customer in System column?",o:["16","20","24","28"],a:2,e:"4+3+3+8+6 = 24."},
+{t:"mcq",h:TY+"<p>After building the simulation table, how many minutes does customer 4 spend in the system?</p>",q:"After building the simulation table, how many minutes does customer 4 spend in the system?",o:["6","7","8","9"],a:2,e:"Waiting 2 + service 6 = 8."},
+{t:"tf",h:TY+"<p>Customer 4 waits 2 minutes in the queue.</p>",q:"Customer 4 waits 2 minutes in the queue.",a:true,e:"Arrives at 7, service begins at 9."},
+{t:"tf",h:TY+"<p>Customer 1 has zero idle time of server.</p>",q:"Customer 1 has zero idle time of server.",a:true,e:"Customer 1 starts immediately at clock 0."},
+{t:"tf",h:TY+"<p>Customer 3 has zero waiting time in queue.</p>",q:"Customer 3 has zero waiting time in queue.",a:true,e:"Customer 2 ends at 5; customer 3 arrives at 6."}
+]},
+{
+name: "Quiz 1 — 26/27",
+items: [
+{t:"mcq",q:"In a bank, clients wait in line to speak with a bank teller. In this example of a queuing system, the server is ...",o:["The bank teller","The clients","The bank","The money"],a:0},
+{t:"mcq",q:"... is the maximum number of units that can be accommodated in a queuing system.",o:["Queue Behavior","Queue Discipline","System Capacity","Calling Population"],a:2},
+{t:"mcq",q:"If a customer jockeys, this means that they...",o:["moved from one line to another if they thought they have chosen a slow line","skipped the line entirely","left when they saw the line was too long","left when they saw the line was moving too slow"],a:0},
+{t:"mcq",q:"Typical measures of a queuing system's performance include",o:["Server utilization","Length of waiting lines","Delays of customers","All of the above"],a:3},
+{t:"mcq",h:"<p>From the following departure event flowchart, what happens when a customer leaves and another customer is waiting in the queue?</p>"+FLOW,q:"From the following departure event flowchart, what happens when a customer leaves and another customer is waiting in the queue?",o:["The waiting customer stays in the queue indefinitely","The waiting customer is removed from the queue and the server begins servicing them","The server begins idle time","None of the above"],a:1},
+{t:"mcq",h:"<p>Complete the following single server queuing system simulation table, then answer the following questions.</p>"+QT+"<p>What is the arrival time of customer 1?</p>",q:"What is the arrival time of customer 1?",o:["0","1","3","4"],a:0,e:"Customer 1 arrives at clock 0."},
+{t:"mcq",h:"<p>Complete the following single server queuing system simulation table, then answer the following questions.</p>"+QT+"<p>What is the waiting time in queue for customer 2?</p>",q:"What is the waiting time in queue for customer 2?",o:["0","1","2","3"],a:1,e:"Customer 2 arrives at 3 and service begins at 4, so waiting = 1."},
+{t:"mcq",h:"<p>Complete the following single server queuing system simulation table, then answer the following questions.</p>"+QT+"<p>What is the arrival time of customer 3?</p>",q:"What is the arrival time of customer 3?",o:["3","6","9","11"],a:2,e:"3 + 6 = 9."},
+{t:"mcq",h:"<p>Complete the following single server queuing system simulation table, then answer the following questions.</p>"+QT+"<p>What is the idle time of the server for customer 3?</p>",q:"What is the idle time of the server for customer 3?",o:["0","2","4","6"],a:2,e:"Customer 2 ends at 5; customer 3 begins at 9, so idle = 4."},
+{t:"mcq",h:"<p>Complete the following single server queuing system simulation table, then answer the following questions.</p>"+QT+"<p>What is the total run time of the simulation?</p>",q:"What is the total run time of the simulation?",o:["4","9","11","15"],a:2,e:"Customer 3's service ends at clock 11."}
+]},
+{
+name: "المحاضرة 2 — 50 MCQ",
+items: [
+{t:"mcq",q:"According to Slide 9, the \"Who\" question in the descriptive problem definition refers specifically to:",o:["Who caused the problem","Who will fix the problem","Who detected the problem","Who pays for the problem"],a:2},
+{t:"mcq",q:"When documenting current processes at the gemba (Slide 8), which of the following is NOT explicitly listed as something to document?",o:["Who does what","Using what tools","The budget allocated","In what timeframe"],a:2},
+{t:"mcq",q:"In the Planning Example on Slide 17, what is the very first action step listed?",o:["Go to room b","Pick up block a","Put down whatever is now held","Return to original location"],a:2},
+{t:"mcq",q:"Slide 14 lists three specific aspects of contingency planning. Which of the following is NOT one of them?",o:["Identifying potential obstacles/barriers","Planning how to react in the worst-case scenario","Calculating the exact financial cost of failure","Considering human elements (who feels threatened)"],a:2},
+{t:"mcq",q:"Which tool is specifically mentioned on Slide 10 as a technique that Root Cause Analysis (RCA) can be a part of?",o:["The 5 Whys","The A3 report","Pareto Chart","SWOT Analysis"],a:1},
+{t:"mcq",q:"On Slide 11, how does the presentation suggest improving a \"merely OK\" solution?",o:["By discarding it immediately","By combining two merely OK solutions into one hybrid great solution","By asking management to rewrite it","By ignoring customer feedback"],a:1},
+{t:"mcq",q:"According to Slide 12, what is a key question to ask regarding constraints?",o:["Are there any constraints preventing you from choosing a solution?","How much will the constraints cost?","Who created the constraints?","Can we ignore the constraints?"],a:0},
+{t:"mcq",q:"Which of the following is listed on Slide 27 as a Key Decision-Making Skill?",o:["Perseverance","Attention to Detail","Emotional Intelligence","Research Skills"],a:2},
+{t:"mcq",q:"Which of the following is listed on Slide 28 as a Key Problem-Solving Skill?",o:["Negotiation and Persuasion","Risk Assessment","Perseverance","Time Management"],a:2},
+{t:"mcq",q:"On Slide 29, \"Improved Relationships\" is listed as an importance of:",o:["Decision-Making Skills","Problem-Solving Skills","Both","Neither"],a:1},
+{t:"mcq",q:"On Slide 29, \"Strategic Planning\" is listed as an importance of:",o:["Decision-Making Skills","Problem-Solving Skills","Both","Neither"],a:0},
+{t:"mcq",q:"According to Slide 30, what is the step immediately following \"Gather Relevant Information\" in the Decision-Making Process?",o:["Take Action","Weigh the Evidence","Identify Alternatives","Review the Decision"],a:2},
+{t:"mcq",q:"Slide 6 lists \"Maintain a Formal Tone\" as a tip. Which of the following is also on that list?",o:["Use complex vocabulary","Check thoroughly for errors","Focus only on the solution","Ignore the five key questions"],a:1},
+{t:"mcq",q:"In Slide 5's \"Key Steps for Writing a Problem Statement,\" which step comes directly after \"Find the Root Cause\"?",o:["Identify the Problem","Put the Problem into Context","Describe Your Ideal Outcome","Propose a Solution"],a:2},
+{t:"mcq",q:"Slide 2 defines a Problem Statement as a clear description of an issue, challenge, or:",o:["Solution","Gap","Person","Budget"],a:1},
+{t:"mcq",q:"Slide 3 states that a good problem statement should focus on the root cause and its:",o:["Cost","Impact","Solution","Timeline"],a:1},
+{t:"mcq",q:"Which of the following is NOT one of the 7 reasons Problem Statements are important (Slide 4)?",o:["Clarify Focus","Lead Planning","Guarantee Profit","Stimulate Innovation"],a:2},
+{t:"mcq",q:"On Slide 8, what type of data should be collected and analyzed when defining the problem?",o:["Only quantitative data","Only qualitative data","Both qualitative and quantitative","Neither, just opinions"],a:2},
+{t:"mcq",q:"According to Slide 10, which question helps verify the root cause?",o:["Who is responsible?","How did you verify this cause?","When will it be fixed?","How much will it cost?"],a:1},
+{t:"mcq",q:"In Slide 11, the text advises against starting to plan the execution of:",o:["The most expensive idea","The first idea","The customer's idea","The manager's idea"],a:1},
+{t:"mcq",q:"Slide 14 mentions \"case analysis tools\" to develop contingencies. Which of the following is one of the specific bullet points under this?",o:["Identifying potential obstacles or barriers","Calculating ROI","Hiring new staff","Creating a marketing plan"],a:0},
+{t:"mcq",q:"In the Planning Example (Slide 17), the goal is to get block (a) from:",o:["Room a","Room b","The original location","Outside"],a:1},
+{t:"mcq",q:"Slide 26 defines the Decision-Making Process as a systematic approach to choosing a course of action among:",o:["One option","Multiple alternatives","Random guesses","Past mistakes"],a:1},
+{t:"mcq",q:"Which skill appears on BOTH the Decision-Making Skills list (Slide 27) and the Problem-Solving Skills list (Slide 28)?",o:["Emotional Intelligence","Critical Thinking","Time Management","Research Skills"],a:1},
+{t:"mcq",q:"Which skill is listed twice on the Decision-Making Skills slide (Slide 27)?",o:["Communication","Confidence","Time Management","Risk Assessment"],a:2},
+{t:"mcq",q:"According to Slide 29, \"Adaptability and Resilience\" is an importance of:",o:["Problem-Solving Skills","Decision-Making Skills","Both","Neither"],a:1},
+{t:"mcq",q:"In the Decision-Making Process (Slide 30), \"Weigh the Evidence\" comes directly before:",o:["Identify Alternatives","Choose Among Alternatives","Take Action","Review the Decision"],a:1},
+{t:"mcq",q:"When defining the problem (Slide 8), it is important to differentiate fact from:",o:["Data","Opinion","Process","Solution"],a:1},
+{t:"mcq",q:"Which descriptive question (Slide 9) asks about the percentage of production that is defective?",o:["What","Where","How (many/much)","Why"],a:2},
+{t:"mcq",q:"What does the \"5 Whys\" technique aim to uncover?",o:["The person to blame","The root cause","The budget","The timeline"],a:1},
+{t:"mcq",q:"Slide 12 asks, \"How does this solution address the ______?\"",o:["Budget","Root cause","Customer complaint","Timeline"],a:1},
+{t:"mcq",q:"In Slide 14, what should you consider regarding \"human elements\"?",o:["Who will feel threatened","Who will get a promotion","Who will retire","Who will be hired"],a:0},
+{t:"mcq",q:"Which of the following is NOT listed as a Key Decision-Making Skill on Slide 27?",o:["Critical Thinking","Negotiation and Persuasion","Attention to Detail","Confidence"],a:2},
+{t:"mcq",q:"Which of the following is NOT listed as a Key Problem-Solving Skill on Slide 28?",o:["Research Skills","Adaptability","Risk Assessment","Collaboration"],a:2},
+{t:"mcq",q:"\"Innovation and Creativity\" is listed as an importance of:",o:["Problem-Solving Skills","Decision-Making Skills","Both","Neither"],a:0},
+{t:"mcq",q:"In the Decision-Making Process (Slide 30), which step involves reviewing the consequences?",o:["Step 5","Step 6","Step 7","Step 1"],a:2},
+{t:"mcq",q:"Slide 2 states that a problem statement defines the need for an effective solution and:",o:["Action","Budget","Timeline","Team"],a:0},
+{t:"mcq",q:"According to Slide 4, preventing teams from tackling symptoms instead of root causes is a benefit related to:",o:["Lead Planning","Clarify Focus","Enhance Communication","Improve Resource Use"],a:1},
+{t:"mcq",q:"Slide 5 lists \"Propose a Solution and Outline Its ______.\"",o:["Costs","Benefits","Risks","Timeline"],a:1},
+{t:"mcq",q:"Slide 6 recommends using:",o:["Complex jargon","Clear, Simple Language","Emotional language","Informal slang"],a:1},
+{t:"mcq",q:"In the problem-solving cycle on Slide 7, what comes immediately after \"Diagnose the root cause\"?",o:["Define the problem","Sustain the results","Identify and implement a solution","Review the process"],a:2},
+{t:"mcq",q:"When going to the gemba (Slide 8), you should document how processes currently work, including communicating with what organizations and individuals, in what timeframe, and using what:",o:["Budget","Software","Format","Language"],a:2},
+{t:"mcq",q:"Slide 9 asks: \"What (what happened) – What is the problem? What product is ______?\"",o:["Expensive","Defective","Popular","New"],a:1},
+{t:"mcq",q:"Slide 10 notes that RCA can be one part of a problem-solving technique, as with the:",o:["A3 report","SWOT analysis","5 Whys","Pareto chart"],a:0},
+{t:"mcq",q:"Slide 12 asks: \"What are the possible problems with this solution? What are your ______ plans?\"",o:["Contingency","Financial","Marketing","Hiring"],a:0},
+{t:"mcq",q:"Slide 14 states that a carefully developed plan should determine how the solution will be ______.",o:["Paid for","Measured","Marketed","Hidden"],a:1},
+{t:"mcq",q:"In Slide 17, the final step (Step 5) is to:",o:["Leave room b","Pick up block a","Return to original location","Go to room b"],a:2},
+{t:"mcq",q:"Slide 27 lists \"Risk Assessment\" as a:",o:["Problem-Solving Skill","Decision-Making Skill","Both","Neither"],a:1},
+{t:"mcq",q:"Slide 28 lists \"Attention to Detail\" as a:",o:["Problem-Solving Skill","Decision-Making Skill","Both","Neither"],a:0},
+{t:"mcq",q:"The Decision-Making Process (Slide 30) ends with reviewing the decision and its:",o:["Costs","Consequences","Alternatives","Evidence"],a:1}
 ]}
 ];
 
-const app = document.getElementById("app");
-const bar = document.getElementById("progress");
-const totalEl = document.getElementById("total");
-const bestEl = document.getElementById("best");
+const ICONS=["📘","📝","🧠","📊","⚙️","🧪","🎯","🧩","🗂️","⏱️","📚","🏆"];
+const app=document.getElementById("app");
+const bar=document.getElementById("progress");
+const totalEl=document.getElementById("total");
+const bestEl=document.getElementById("best");
 
-let sec = null;          // current section index, null = menu
-const correct = {};      // per section: Set of item indices answered correctly (score only goes up)
-SECTIONS.forEach((_, s) => correct[s] = new Set());
-let queue = [], pos = 0, roundWrong = [], answered = false;
+let sec=null;
+const correct={};
+SECTIONS.forEach((_,s)=>correct[s]=new Set());
+let queue=[],pos=0,roundWrong=[],answered=false;
 
-function total(){ return sec === null ? 0 : SECTIONS[sec].items.length; }
+function total(){return sec===null?0:SECTIONS[sec].items.length;}
 
 function updateStats(){
   renderTabs();
-  if(sec === null){
-    totalEl.textContent = "اختار القسم";
-    bestEl.textContent = "";
-    bar.style.width = "0%";
+  if(sec===null){
+    totalEl.textContent="اختار القسم";
+    bestEl.textContent="";
+    bar.style.width="0%";
     return;
   }
-  const c = correct[sec].size, t = total();
-  totalEl.textContent = SECTIONS[sec].name + " — الاسكور: " + c + " / " + t;
-  bestEl.textContent = Math.round(c / t * 100) + "%";
-  bar.style.width = (c / t * 100) + "%";
+  const c=correct[sec].size,t=total();
+  totalEl.textContent=SECTIONS[sec].name+" — الاسكور: "+c+" / "+t;
+  bestEl.textContent=Math.round(c/t*100)+"%";
+  bar.style.width=(c/t*100)+"%";
 }
 
 function renderTabs(){
-  const box = document.getElementById('tabs');
-  box.innerHTML = '';
-  SECTIONS.forEach((s, i) => {
-    const b = document.createElement('button');
-    b.className = 'tab' + (sec === i ? ' active' : '');
-    b.textContent = s.name;
-    b.onclick = () => openSection(i);
+  const box=document.getElementById("tabs");
+  box.innerHTML="";
+  SECTIONS.forEach((s,i)=>{
+    const b=document.createElement("button");
+    b.className="tab"+(sec===i?" active":"");
+    b.textContent=ICONS[i%ICONS.length]+" "+s.name;
+    b.onclick=()=>openSection(i);
     box.appendChild(b);
   });
-  const o = document.createElement('button');
-  o.className = 'tab total';
-  o.textContent = 'النتيجة الإجمالية';
-  o.onclick = showOverall;
+  const o=document.createElement("button");
+  o.className="tab total";
+  o.textContent="🏁 النتيجة الإجمالية";
+  o.onclick=showOverall;
   box.appendChild(o);
 }
+
 function overallStats(){
-  let c = 0, t = 0;
-  SECTIONS.forEach((s, i) => { c += correct[i].size; t += s.items.length; });
-  return { c: c, t: t };
+  let c=0,t=0;
+  SECTIONS.forEach((s,i)=>{c+=correct[i].size;t+=s.items.length;});
+  return {c,t};
 }
-function allDone(){ return SECTIONS.every((s, i) => correct[i].size === s.items.length); }
+function allDone(){return SECTIONS.every((s,i)=>correct[i].size===s.items.length);}
+
 function overallHTML(){
-  const st = overallStats();
-  const rows = SECTIONS.map((s, i) => '<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line)"><span>' + s.name + '</span><span>' + correct[i].size + ' / ' + s.items.length + '</span></div>').join('');
-  return '<div style="margin-top:14px">' + (allDone() ? '<p style="font-weight:700;color:var(--ok)">خلصت كل الأقسام!</p>' : '') + '<p>الاسكور الإجمالي</p><div class="score">' + st.c + ' / ' + st.t + '</div><p style="color:var(--muted)">' + Math.round(st.c / st.t * 100) + '%</p>' + rows + '</div>';
+  const st=overallStats(),p=Math.round(st.c/st.t*100);
+  const rows=SECTIONS.map((s,i)=>'<div class="orow"><span>'+ICONS[i%ICONS.length]+" "+s.name+'</span><span>'+correct[i].size+' / '+s.items.length+'</span></div>').join("");
+  return '<div class="ovr">'+(allDone()?'<p class="done">🏆 خلصت كل الأقسام!</p>':"")+
+    '<p class="lbl">الاسكور الإجمالي</p>'+
+    '<div class="ring" style="--p:'+p+'"><div class="in"><span>'+st.c+' / '+st.t+'</span><small>'+p+'%</small></div></div>'+rows+'</div>';
 }
+
 function showOverall(){
-  sec = null;
+  sec=null;
   updateStats();
-  app.innerHTML = '<div class="result">' + overallHTML() + '<div class="btns"><button class="ghost" onclick="showMenu()">القائمة الرئيسية</button></div></div>';
+  app.innerHTML='<div class="result">'+overallHTML()+'<div class="btns"><button class="ghost" onclick="showMenu()">القائمة الرئيسية</button></div></div>';
 }
+
 function showMenu(){
-  sec = null;
+  sec=null;
   updateStats();
-  app.innerHTML = '<div class="menu"></div>';
-  const menu = app.querySelector(".menu");
-  SECTIONS.forEach((s, i) => {
-    const b = document.createElement("button");
-    b.className = "primary";
-    b.textContent = s.name + " (" + correct[i].size + " / " + s.items.length + ")";
-    b.onclick = () => openSection(i);
+  app.innerHTML='<div class="menu"></div>';
+  const menu=app.querySelector(".menu");
+  SECTIONS.forEach((s,i)=>{
+    const c=correct[i].size,t=s.items.length,p=Math.round(c/t*100);
+    const b=document.createElement("button");
+    b.className="secCard";
+    b.style.setProperty("--i",i);
+    b.innerHTML='<span class="secIcon">'+ICONS[i%ICONS.length]+'</span><span class="secBody"><span class="secName"></span><span class="secMini"><span class="secFill" style="width:'+p+'%"></span></span><span class="secNum">'+c+' / '+t+' • '+p+'%</span></span>';
+    b.querySelector(".secName").textContent=s.name;
+    b.onclick=()=>openSection(i);
     menu.appendChild(b);
   });
 }
 
 function openSection(i){
-  sec = i;
-  startRound(SECTIONS[i].items.map((_, k) => k));
+  sec=i;
+  startRound(SECTIONS[i].items.map((_,k)=>k));
 }
 
 function startRound(list){
-  queue = list.slice();
-  pos = 0;
-  roundWrong = [];
+  queue=list.slice();
+  pos=0;
+  roundWrong=[];
   render();
 }
 
+function confetti(){
+  const colors=["#4f6ef7","#8e5cf6","#16a34a","#f5b642","#e5484d","#22d3ee"];
+  for(let i=0;i<70;i++){
+    const d=document.createElement("i");
+    d.className="conf";
+    d.style.left=(Math.random()*100)+"vw";
+    d.style.background=colors[i%colors.length];
+    d.style.animationDelay=(Math.random()*0.5)+"s";
+    d.style.animationDuration=(1.8+Math.random()*1.4)+"s";
+    document.body.appendChild(d);
+    setTimeout(()=>d.remove(),3800);
+  }
+}
+
 function showResult(){
-  const roundRight = queue.length - roundWrong.length;
-  const wrongCount = roundWrong.length;
-  const missing = total() - correct[sec].size;
-  app.innerHTML =
-    '<div class="result">' +
-    '<p>نتيجة الجولة</p>' +
-    '<div class="score">' + roundRight + ' / ' + queue.length + '</div>' +
-    '<p style="color:var(--muted)">الاسكور الكلي للقسم: ' + correct[sec].size + ' / ' + total() + '</p>' +
+  const roundRight=queue.length-roundWrong.length;
+  const wrongCount=roundWrong.length;
+  const missing=total()-correct[sec].size;
+  const roundPct=Math.round(roundRight/queue.length*100);
+  app.innerHTML='<div class="result">'+
+    '<p class="lbl">نتيجة الجولة</p>'+
+    '<div class="ring" style="--p:'+roundPct+'"><div class="in"><span>'+roundRight+' / '+queue.length+'</span><small>الجولة</small></div></div>'+
+    '<p class="muted">الاسكور الكلي للقسم: '+correct[sec].size+' / '+total()+'</p>'+
     '<div class="btns"></div></div>';
-  const box = app.querySelector(".btns");
-  if(wrongCount > 0){
-    const b = document.createElement("button");
-    b.className = "primary";
-    b.textContent = "إعادة الأسئلة الغلط (" + wrongCount + ")";
-    b.onclick = () => startRound(roundWrong.slice());
+  const box=app.querySelector(".btns");
+  if(wrongCount>0){
+    const b=document.createElement("button");
+    b.className="primary";
+    b.textContent="إعادة الأسئلة الغلط ("+wrongCount+")";
+    b.onclick=()=>startRound(roundWrong.slice());
     box.appendChild(b);
   }
-  if(missing > 0){
-    const b = document.createElement("button");
-    b.className = wrongCount > 0 ? "ghost" : "primary";
-    b.textContent = "إعادة القسم كامل";
-    b.onclick = () => startRound(SECTIONS[sec].items.map((_, k) => k));
+  if(missing>0){
+    const b=document.createElement("button");
+    b.className=wrongCount>0?"ghost":"primary";
+    b.textContent="إعادة القسم كامل";
+    b.onclick=()=>startRound(SECTIONS[sec].items.map((_,k)=>k));
     box.appendChild(b);
   } else {
-    const p = document.createElement("p");
-    p.textContent = "ممتاز! جاوبت على كل أسئلة القسم صح.";
+    const p=document.createElement("p");
+    p.className="done";
+    p.textContent="ممتاز! جاوبت على كل أسئلة القسم صح 🎉";
     box.appendChild(p);
   }
-  const back = document.createElement("button");
-  back.className = "ghost";
-  back.textContent = "القائمة الرئيسية";
-  back.onclick = showMenu;
+  const back=document.createElement("button");
+  back.className="ghost";
+  back.textContent="القائمة الرئيسية";
+  back.onclick=showMenu;
   box.appendChild(back);
-  const reset = document.createElement("button");
-  reset.className = "ghost";
-  reset.textContent = "صفّر اسكور القسم";
-  reset.onclick = () => { correct[sec].clear(); startRound(SECTIONS[sec].items.map((_, k) => k)); };
+  const reset=document.createElement("button");
+  reset.className="ghost";
+  reset.textContent="صفّر اسكور القسم";
+  reset.onclick=()=>{correct[sec].clear();startRound(SECTIONS[sec].items.map((_,k)=>k));};
   box.appendChild(reset);
-  if(allDone()){ app.querySelector('.result').insertAdjacentHTML('beforeend', overallHTML()); }
+  if(allDone()){app.querySelector(".result").insertAdjacentHTML("beforeend",overallHTML());}
+  if(wrongCount===0||allDone()){confetti();}
   updateStats();
 }
 
 function render(){
   updateStats();
-  if(pos >= queue.length){ showResult(); return; }
-  answered = false;
-  const qi = queue[pos];
-  const item = SECTIONS[sec].items[qi];
-  const options = item.t === "tf" ? ["True","False"] : item.o;
-  const correctIdx = item.t === "tf" ? (item.a ? 0 : 1) : item.a;
+  if(pos>=queue.length){showResult();return;}
+  answered=false;
+  const qi=queue[pos],item=SECTIONS[sec].items[qi];
+  const isTF=item.t==="tf";
+  const options=isTF?["True","False"]:item.o;
+  const correctIdx=isTF?(item.a?0:1):item.a;
 
-  const wrap = document.createElement("div");
-  wrap.innerHTML = '<div class="meta"><span>السؤال ' + (pos+1) + ' من ' + queue.length + '</span><span>' + (item.t === "tf" ? "True / False" : "Multiple Choice") + '</span></div>' +
-    '<p class="q"></p><div class="opts"></div><div class="row"><span class="fb"></span><button class="primary" disabled>التالي</button></div>';
-  wrap.querySelector(".q").textContent = item.q;
-  const optsBox = wrap.querySelector(".opts");
-  const fb = wrap.querySelector(".fb");
-  const next = wrap.querySelector("button.primary");
+  const wrap=document.createElement("div");
+  wrap.className="qbox";
+  wrap.innerHTML='<div class="meta"><span class="pill"></span><span class="pill"></span></div><div class="q"></div><div class="opts"></div><div class="actrow"><span class="fb"></span><button class="primary" disabled>التالي</button></div>';
+  wrap.querySelectorAll(".pill")[0].textContent="السؤال "+(pos+1)+" من "+queue.length;
+  wrap.querySelectorAll(".pill")[1].textContent=isTF?"True / False":"Multiple Choice";
+  const qEl=wrap.querySelector(".q");
+  if(item.h){qEl.innerHTML=item.h;}else{qEl.textContent=item.q;}
+  const optsBox=wrap.querySelector(".opts");
+  const fb=wrap.querySelector(".fb");
+  const next=wrap.querySelector("button.primary");
 
-  options.forEach((text, i) => {
-    const b = document.createElement("button");
-    b.className = "opt";
-    b.textContent = (item.t === "mcq" ? String.fromCharCode(65+i) + ". " : "") + text;
-    b.onclick = () => {
-      if(answered) return;
-      answered = true;
-      const btns = optsBox.querySelectorAll("button");
-      btns.forEach(x => x.disabled = true);
-      if(i === correctIdx){
+  options.forEach((text,i)=>{
+    const b=document.createElement("button");
+    b.className="opt";
+    b.style.setProperty("--d",(i*70+80)+"ms");
+    const k=document.createElement("span");
+    k.className="k";
+    k.textContent=isTF?"":String.fromCharCode(65+i);
+    if(isTF)k.style.display="none";
+    const t=document.createElement("span");
+    t.textContent=text;
+    b.append(k,t);
+    b.onclick=()=>{
+      if(answered)return;
+      answered=true;
+      const btns=optsBox.querySelectorAll("button");
+      btns.forEach(x=>x.disabled=true);
+      if(i===correctIdx){
         b.classList.add("correct");
         correct[sec].add(qi);
-        fb.textContent = "إجابة صحيحة"; fb.className = "fb ok";
+        fb.textContent="🎉 إجابة صحيحة";
+        fb.className="fb ok show";
       } else {
         b.classList.add("wrong");
         btns[correctIdx].classList.add("correct");
-        if(!correct[sec].has(qi)) roundWrong.push(qi);
-        fb.textContent = "إجابة خاطئة"; fb.className = "fb bad";
-        if(item.e){ const ex = document.createElement("p"); ex.style.cssText = "direction:ltr;text-align:left;color:var(--muted);font-size:14px;margin:12px 0 0;line-height:1.6"; ex.textContent = "Explanation: " + item.e; wrap.appendChild(ex); }
+        if(!correct[sec].has(qi))roundWrong.push(qi);
+        fb.textContent="❌ إجابة خاطئة";
+        fb.className="fb bad show";
+      }
+      if(item.e){
+        const ex=document.createElement("p");
+        ex.className="expl";
+        ex.textContent="Explanation: "+item.e;
+        wrap.appendChild(ex);
       }
       updateStats();
-      next.disabled = false;
+      next.disabled=false;
     };
     optsBox.appendChild(b);
   });
 
-  next.onclick = () => { pos++; render(); };
-  app.innerHTML = "";
+  next.onclick=()=>{pos++;render();};
+  app.innerHTML="";
   app.appendChild(wrap);
 }
 
